@@ -3,7 +3,7 @@ namespace AudioPlayer.Core.Models
     public class Track
     {
         public string FilePath { get; set; } = string.Empty;
-        public TrackMetadata Metadata { get; set; } = new ();
+        public TrackMetadata Metadata { get; set; } = new();
         public TimeSpan Duration { get; set; }
 
         public override string ToString()

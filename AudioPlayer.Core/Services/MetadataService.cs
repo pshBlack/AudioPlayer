@@ -6,7 +6,7 @@ public class MetadataService
 {
     public TrackMetadata Read(string filePath)
     {
-        if(!System.IO.File.Exists(filePath))
+        if (!System.IO.File.Exists(filePath))
             throw new FileNotFoundException("File not found :( :", filePath);
 
         using var file = TagLib.File.Create(filePath); // use using to ensure proper disposal of resources
@@ -22,7 +22,7 @@ public class MetadataService
 
     public TimeSpan ReadDuration(string filePath)
     {
-        if(!System.IO.File.Exists(filePath))
+        if (!System.IO.File.Exists(filePath))
             throw new FileNotFoundException("File not found :( :", filePath);
 
         using var file = TagLib.File.Create(filePath);
@@ -31,9 +31,8 @@ public class MetadataService
 
     public Track CreateTrack(string filePath)
     {
-        if(!System.IO.File.Exists(filePath))
+        if (!System.IO.File.Exists(filePath))
             throw new FileNotFoundException("File not found :( :", filePath);
-        
         using var file = TagLib.File.Create(filePath);
 
         return new Track
@@ -53,9 +52,8 @@ public class MetadataService
 
     public IEnumerable<Track> CreateTracksFromDirectory(string dirPath)
     {
-        if(!System.IO.Directory.Exists(dirPath))
-           throw new DirectoryNotFoundException("Directory not found :( :  " + dirPath);
-
+        if (!System.IO.Directory.Exists(dirPath))
+            throw new DirectoryNotFoundException("Directory not found :( :  " + dirPath);
         string[] supportedExtensions = { ".mp3", ".flac", ".wav", ".aac", ".ogg" };
 
         return Directory

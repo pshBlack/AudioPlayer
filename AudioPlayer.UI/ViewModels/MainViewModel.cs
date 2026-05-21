@@ -272,7 +272,7 @@ public class MainViewModel : INotifyPropertyChanged
         }
     }
 
-public double TrackDuration { get; private set; }
+    public double TrackDuration { get; private set; }
 
     private void LoadTracks()
     {
