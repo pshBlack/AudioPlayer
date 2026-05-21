@@ -1,0 +1,71 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:AudioPlayer.UI.ViewModels"
+        x:Class="AudioPlayer.UI.Views.MainWindow"
+        x:DataType="vm:MainViewModel"
+        xmlns:core="using:AudioPlayer.Core.Models"
+        Title="AudioPlayer"
+        Width="800" Height="600"
+        MinWidth="600" MinHeight="400">
+
+    <DockPanel>
+
+        <StackPanel DockPanel.Dock="Left" Width="200" Margin="8">
+            <TextBlock Text="Playlists" FontWeight="Bold" Margin="0,0,0,8"/>
+            <ListBox ItemsSource="{Binding Playlists}"
+                     SelectedItem="{Binding SelectedPlaylist}"
+                     Height="300"/>
+            <StackPanel Orientation="Horizontal" Margin="0,8,0,0">
+                <TextBox Text="{Binding NewPlaylistName}"
+                         PlaceholderText="New name..."
+                         Width="120"/>
+                <Button Content="+" Command="{Binding CreatePlaylistCommand}" Margin="4,0,0,0"/>
+            </StackPanel>
+            <Button Content="Delete" Command="{Binding DeletePlaylistCommand}" Margin="0,4,0,0" HorizontalAlignment="Stretch"/>
+        </StackPanel>
+
+        <DockPanel>
+
+            <Border DockPanel.Dock="Bottom" Padding="12" BorderThickness="0,1,0,0" BorderBrush="Gray">
+                <StackPanel>
+                    <TextBlock Text="{Binding CurrentTrackInfo}" HorizontalAlignment="Center" Margin="0,0,0,8"/>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="8">
+                        <Button Content="⏮" Command="{Binding PreviousCommand}"/>
+                        <Button Content="⏯" Command="{Binding PlayPauseCommand}"/>
+                        <Button Content="⏭" Command="{Binding NextCommand}"/>
+                    </StackPanel>
+                    <Slider Value="{Binding Position}"
+                        Minimum="0"
+                        Maximum="{Binding TrackDuration}"
+                        Margin="0,4,0,8"/>
+                    <StackPanel Orientation="Horizontal" Margin="0,8,0,0" Spacing="8">
+                        <TextBlock Text="Volume:" VerticalAlignment="Center"/>
+                        <Slider Value="{Binding Volume}" Minimum="0" Maximum="1" Width="150"/>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <DockPanel>
+                <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="8" Spacing="8">
+                    <Button Content="Add File" Command="{Binding AddFileCommand}"/>
+                    <Button Content="Add Folder" Command="{Binding AddFolderCommand}"/>
+                    <Button Content="Shuffle" Command="{Binding ShuffleCommand}"/>
+                    <TextBox Text="{Binding SearchQuery}" PlaceholderText="Search..." Width="150"/>
+                </StackPanel>
+
+                <ListBox ItemsSource="{Binding Tracks}"
+                    SelectedItem="{Binding SelectedTrack}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate x:DataType="core:Track">
+                        <StackPanel>
+                            <TextBlock Text="{Binding Metadata.Title}" FontWeight="Bold"/>
+                            <TextBlock Text="{Binding Metadata.Artist}" Foreground="Gray" FontSize="12"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            </DockPanel>
+
+        </DockPanel>
+    </DockPanel>
+</Window>
